@@ -1,0 +1,49 @@
+<%- include('../partials/header') -%>
+
+<div class="jumbotron">
+    <h1>Update profil</h1>
+</div>
+
+<div class="form update user">
+    <form action="../updateUser" method="post">
+        <fieldset>
+            <legend>Modifier votre profil : </legend>
+
+            <label for="first">Prénom :</label>
+            <input type="text" name="first" id="first" value="<%= user.firstname %>" required/><br>
+
+            <label for="last">Nom :</label>
+            <input type="text" name="last" id="last" value="<%= user.lastname %>" required/><br>
+
+            <% if (admin === 1 || admin === true) { %>
+                <input type="hidden" name="username" id="username" value="<%= user.username %>">
+                <input type="hidden" name="email" id="email" value="<%= user.email %>">
+                <input type="hidden" name="age" id="age" value="<%= user.age %>">
+            <% } else { %>
+
+                <label for="username">Pseudo :</label>
+                <input type="text" name="username" id="username" value="<%= user.username %>" required/><br>
+
+                <label for="email">Email :</label>
+                <input type="email" name="email" id="email" value="<%= user.email %>" required/><br>
+
+                <label for="age">Date de naissance :</label><br>
+                <input type="date" name="age" id="age"/><br>
+                <p>Insérer votre date de naissance comme suit :  <%= user.age.toLocaleDateString ('fr-FR', { day :'2-digit', month : '2-digit', year : 'numeric' }) %></p><br>
+            <% } %>
+
+            <% if (admin === 1 || admin === true) { %>
+            <label for="admin">Admin :</label>
+            <input type="boolean" name="admin" id="admin" value="<%= user.admin %>"><br>
+            <% } %>
+
+            <input type="hidden" name="admin" id="admin" value="<%= user.admin %>">
+            <input type="hidden" name="id" id="id" value="<%= user.Id_users %>">
+
+            <input type="submit" value="Valider"/>
+        </fieldset>
+    </form>
+</div>
+
+
+<%- include('../partials/footer') -%>

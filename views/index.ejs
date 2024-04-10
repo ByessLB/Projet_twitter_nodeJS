@@ -1,0 +1,43 @@
+<%- include('partials/header') -%>
+
+<div class="jumbotron">
+    <h1>
+        <% if (user) { %>
+            <% if (user.admin === 0 || user.admin === '0') {%>
+                <h1>Bienvenue ! <%= user.username %></h1>
+            <% } else { %>
+                <h1>Administration : Bienvenue Master <%= user.username %></h1>
+            <% } %>
+        <% } else { %>
+            <h1>Bienvenue !</h1>
+        <% } %>
+    </h1>
+</div>
+
+<div class="burger">
+    <div class="connection">
+        <ul>
+            <% if (!user) { %>
+            <li><a href="log">Se connecter</a></li>
+            <% } else { %>
+            <li><a href="logout">Se déconnecter</a></li>
+            <% } %>
+        </ul>
+    </div>
+
+    <div class="link">
+        <% if (user && user.admin === 1) { %>
+        <ul>
+            <li><a href="allUsers">Users list</a></li>
+        <%  } else if (user && user.admin === 0) { %>
+            <li><a href="profil/<%= user.Id_users %>">Profil</a></li>
+        <% } %>
+        <% if (user) { %>
+        <li><a href="tweets">Tweets</a></li>
+        <% } %>
+        </ul>
+    </div>
+</div>
+
+
+<%- include('partials/footer') -%>

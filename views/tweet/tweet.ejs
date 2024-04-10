@@ -1,0 +1,88 @@
+<%- include('../partials/header') -%>
+
+<div class="jumbotron">
+    <h1>Tweet</h1>
+</div>
+
+<div class="btn retour">
+    <a href="../tweets">Retour</a>
+</div>
+
+<div class="btn tweet">
+    <a href="/creaTweet">Create your tweet</a>
+</div>
+
+    <div class="card tweet">
+            <h3><%= tweet.username %></h3>
+            <%= tweet.content %>
+            <p class="date">
+                <%= tweet.created_at.toLocaleDateString('fr-FR', {day : "2-digit", month : "2-digit", year : 'numeric'}) %> <br>
+                <%= tweet.created_at.toLocaleTimeString('fr-FR') %>
+            </p>
+        <div class="media">
+            <object data="<%= tweet.media %>" type="<%= mime.lookup(tweet.media) %>">
+                <% if (mime.lookup(tweet.media) === 'image/jpeg' || mime.lookup(tweet.media) === 'image/png' || mime.lookup(tweet.media) === 'image/gif') { %>
+                    <img src="<%= tweet.media %>" alt="">
+                <% } else if (mime.lookup(tweet.media) === 'video/mp4' || mime.lookup(tweet.media) === 'video/webm' || mime.lookup(tweet.media) === 'video/ogg') { %>
+                    <video src="<%= tweet.media %>" controls>
+                    <p>Votre navigateur ne prend pas en charge la vidéo.</p>
+                    </video>
+                <% } else if (mime.lookup(tweet.media) === 'audio/mpeg' || mime.lookup(tweet.media) === 'audio/ogg' || mime.lookup(tweet.media) === 'audio/wav') { %>
+                    <audio src="<%= tweet.media %>" controls>
+                    <p>Votre navigateur ne prend pas en charge l'audio.</p>
+                    </audio>
+                <% } else { %>
+                    <p>Votre navigateur ne prend pas en charge ce type de média.</p>
+                <% } %>
+            </object>
+        </div>
+        <% if (tweet.Id_users !== user.Id_users) { %>
+            <div class="form comment">
+                <form action="../createdComment" method="post">
+                    <fieldset>
+                        <legend>Leave a comment</legend>
+                        <input type="hidden" name="tweet" value="<%= tweet.Id_tweet %>">
+                        <input type="hidden" name="user" value="<%= user.Id_users %>">
+                        <label for="comment">Laisse un commentaire :</label>
+                        <textarea name="comment" id="comment" cols="50" rows="1" placeholder="Laisse un commentaire juste ici !!!"></textarea>
+                        <input type="submit" value="send">
+                    </fieldset>
+                </form>
+                </div>
+
+        <div class="btn like-retweet">
+            <ul>
+                <li><a href="">Like</a></li>
+                <li><a href="">Retweet</a></li>
+                <li><a href="">Follow</a></li>
+            </ul>
+        </div>
+        <% } else if (tweet.Id_users === user.Id_users) { %>
+        <div class="btn update-delete">
+            <ul>
+                <li><a href="../updateTweet/<%= tweet.Id_tweet %>">Modifier</a></li>
+                <li><a href="../deleteTweet/<%= tweet.Id_tweet %>">Supprimer</a></li>
+            </ul>
+        </div>
+        <% } %>
+
+        <% if (comments) { %>
+        <div class="comments">
+            <% comments.forEach(function(com) { %>
+                <div class="com">
+                    <p>Commentaire de : <%= com.username %></p>
+                    <p><%= com.comment %></p>
+                    <p>Publié le : <%= com.created_at.toLocaleDateString('fr-FR', { day : '2-digit', month : '2-digit', year : 'numeric'}) %> à : <%= com.created_at.toLocaleTimeString() %></p>
+                    <% if (com.Id_users === user.Id_users) { %>
+                        <a href="../deleteComment/<%= com.Id_comment %>">Supprimer</a>
+                    <% } %>
+
+                </div>
+            <% }) %>
+        </div>
+        <% } %>
+    </div>
+
+
+
+<%- include('../partials/footer') -%>

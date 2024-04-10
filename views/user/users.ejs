@@ -1,0 +1,28 @@
+<%- include('../partials/header') -%>
+
+<div class="jumbotron">
+    <h1>Users list</h1>
+</div>
+
+<div class="btn retour">
+    <a href="/">Retour</a>
+</div>
+
+<% users.forEach(function (user) { %>
+    <div class="card user" data-id=<%= user.Id_users %> >
+        <h3><%= user.username %></h3>
+        <h4><%= user.firstname %> <%= user.lastname %></h4>
+
+        <p><%= user.email %></p>
+        <p>Date de naissance : <%= user.age.toLocaleDateString('fr-FR', {day : '2-digit', month : '2-digit', year: 'numeric' }) %></p>
+
+        <ul>
+            <li><a href="/update/<%= user.Id_users %>">Modifier</a></li>
+            <li><a href="../delete/<%= user.Id_users %>">Supprimer</a></li>
+        </ul>
+    </div>
+<% }); %>
+
+
+
+<%- include('../partials/footer') -%>

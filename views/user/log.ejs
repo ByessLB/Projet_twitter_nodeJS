@@ -1,0 +1,59 @@
+<%- include('../partials/header') -%>
+
+<div class="jumbotron">
+  <h1>Inscription</h1>
+</div>
+
+<div id="btn retour">
+  <a href="/">Retour</a>
+</div>
+
+<div id="logup">
+  <form action="logup" method="post">
+    <fieldset>
+      <legend>Inscription :</legend>
+      <label for="first">Prénom :</label>
+      <input type="text" name="first" id="first" required /><br />
+
+      <label for="last">Nom :</label>
+      <input type="text" name="last" id="last" required /><br />
+
+      <label for="username">Pseudo :</label>
+      <input type="text" name="username" id="username" required /><br />
+
+      <label for="email">Email :</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="johndoe@mail.com"
+        required
+      /><br />
+
+      <label for="pwd">Mot de passe :</label>
+      <input type="password" name="pwd" id="pwd" required /><br />
+
+      <label for="age">Date de naissance :</label>
+      <input type="date" name="age" id="age" required /><br />
+
+      <input type="hidden" name="admin" value="0" />
+    </fieldset>
+    <input type="submit" value="Valider l'inscription" />
+  </form>
+</div>
+
+<div id="login">
+  <form action="login" method="post">
+    <fieldset>
+      <legend>Connexion :</legend>
+      <label for="username">Pseudo :</label>
+      <input type="text" name="username" id="username" required /><br />
+
+      <label for="pwd">Mot de passe :</label>
+      <input type="password" name="pwd" id="pwd" required /><br />
+    </fieldset>
+    <input type="submit" value="Se connecter" />
+  </form>
+</div>
+
+<%- include('../partials/footer') -%>

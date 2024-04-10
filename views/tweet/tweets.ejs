@@ -1,0 +1,85 @@
+<%- include('../partials/header') -%>
+
+<div class="jumbotron">
+    <h1>Tweets</h1>
+</div>
+
+<% if (message !== null) { %>
+<div class="message">
+    <h3><%= message %></h3>
+</div>
+<% } %>
+
+<div class="btn retour">
+    <a href="/">Retour</a>
+</div>
+
+<div class="btn tweet">
+    <a href="/creaTweet">Create your tweet</a>
+</div>
+
+<% tweets.forEach(function(tweet) { %>
+    <div class="card tweet">
+        <a href="tweet/<%= tweet.Id_tweet %>">
+            <h3><%= tweet.username %></h3>
+            <%= tweet.content %>
+            <p class="date">
+                <%= tweet.created_at.toLocaleDateString('fr-FR', {day : "2-digit", month : "2-digit", year : 'numeric'}) %> <br>
+                <%= tweet.created_at.toLocaleTimeString('fr-FR') %>
+            </p>
+        </a>
+        <div class="media">
+            <object data="<%= tweet.media %>" type="<%= mime.lookup(tweet.media) %>">
+                <% if (mime.lookup(tweet.media) === 'image/jpeg' || mime.lookup(tweet.media) === 'image/png' || mime.lookup(tweet.media) === 'image/gif') { %>
+                    <img src="<%= tweet.media %>" alt="">
+                <% } else if (mime.lookup(tweet.media) === 'video/mp4' || mime.lookup(tweet.media) === 'video/webm' || mime.lookup(tweet.media) === 'video/ogg') { %>
+                    <video src="<%= tweet.media %>" controls>
+                    <p>Votre navigateur ne prend pas en charge la vidéo.</p>
+                    </video>
+                <% } else if (mime.lookup(tweet.media) === 'audio/mpeg' || mime.lookup(tweet.media) === 'audio/ogg' || mime.lookup(tweet.media) === 'audio/wav') { %>
+                    <audio src="<%= tweet.media %>" controls>
+                    <p>Votre navigateur ne prend pas en charge l'audio.</p>
+                    </audio>
+                <% } else { %>
+                    <p>Votre navigateur ne prend pas en charge ce type de média.</p>
+                <% } %>
+            </object>
+        </div>
+        <div class="likes-retweets-follows">
+            <div class="count like">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853Z"></path></svg>
+                <p><%= tweet.likes_count %></p>
+            </div>
+            <div class="count like">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" fill="currentColor"><path d="M12 8H8.001L8 20H6V8H2L7 3L12 8ZM22 16L17 21L12 16H16V4H18V16H22Z"></path></svg>
+                <p><%= tweet.retweets_count %></p>
+            </div>
+            <div class="count like">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" fill="currentColor"><path d="M13 14.0619V22H4C4 17.5817 7.58172 14 12 14C12.3387 14 12.6724 14.021 13 14.0619ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM17.7929 19.9142L21.3284 16.3787L22.7426 17.7929L17.7929 22.7426L14.2574 19.2071L15.6716 17.7929L17.7929 19.9142Z"></path></svg>
+                <p><%=tweet.followers_count %></p>
+            </div>
+        </div>
+        <% if (tweet.Id_users !== user.Id_users) { %>
+            <div class="btn like-retweet">
+            <ul>
+                <li><a href="like/<%= tweet.Id_tweet %>">Like</a></li>
+                <li><a href="disLike/<%= tweet.Id_tweet %>">Dislike</a></li>
+                <li><a href="retweet/<%= tweet.Id_tweet %>">Retweet</a></li>
+                <li><a href="unRetweet/<%= tweet.Id_tweet %>">Unretweet</a></li>
+                <li><a href="follow/<%= tweet.Id_users %>">Follow</a></li>
+                <li><a href="unFollow/<%= tweet.Id_users %>">Unfollow</a></li>
+            </ul>
+        </div>
+        <% } else if (tweet.Id_users === user.Id_users) { %>
+        <div class="btn update-delete">
+            <ul>
+                <li><a href="updateTweet/<%= tweet.Id_tweet %>">Modifier</a></li>
+                <li><a href="deleteTweet/<%= tweet.Id_tweet %>">Supprimer</a></li>
+            </ul>
+        </div>
+        <% } %>
+    </div>
+<% }) %>
+
+
+<%- include('../partials/footer') -%>

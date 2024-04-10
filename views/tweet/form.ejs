@@ -1,0 +1,32 @@
+<%- include('../partials/header') -%>
+
+<div class="jumbotron">
+    <h1>Create a tweet </h1>
+</div>
+
+<% if (message) { %>
+<div class="message">
+    <h3><%= message %></h3>
+</div>
+<% } %>
+
+<div class="form tweet">
+    <form action="createdTweet" method="post">
+        <fieldset>
+            <legend>New Tweet :</legend>
+            <label for="content">Content :</label><br/>
+            <textarea name="content" id="content" cols="30" rows="10" placeholder="Insert your tweet"></textarea><br>
+
+            <label for="media">Media :</label><br>
+            <input type="file" id="media" name="media" accept="image/*, video/*"><br>
+
+            <input type="hidden" name="id" id="id" value="<%= user.Id_users %>">
+
+            <button type="submit">Send</button>
+        </fieldset>
+    </form>
+</div>
+
+
+
+<%- include('../partials/footer') -%>
