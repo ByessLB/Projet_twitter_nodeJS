@@ -68,12 +68,8 @@ exports.deleteFollow = (follower, following, cb) => {
     connection.query(
         qr,
         [follower, following],
-        (err, result) => {
-            if (err) {
-                console.error(err);
-                return cb(err);
-            }
-            console.log(`Number of rows affected: ${result.affectedRows}`);
+        (err, rows) => {
+            if (err) throw err;
             return cb(null);
         }
     );

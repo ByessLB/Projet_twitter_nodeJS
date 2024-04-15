@@ -20,7 +20,7 @@ router.get ('/follow/:id', (req, res) => {
 
 router.get ('/unFollow/:id', (req, res) => {
     const following = req.params.id;
-    const follower = req.session.user.Id_user;
+    const follower = req.session.user.Id_users;
     bdd.deleteFollow (follower, following, () => {
         res.redirect ('/tweets');
     });

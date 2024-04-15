@@ -31,6 +31,7 @@
             <li><a href="allUsers">Users list</a></li>
         <%  } else if (user && user.admin === 0) { %>
             <li><a href="profil/<%= user.Id_users %>">Profil</a></li>
+            <li><a href="mestweets/<%= user.Id_users %>">Mes tweets et retweets</a></li>
         <% } %>
         <% if (user) { %>
         <li><a href="tweets">Tweets</a></li>

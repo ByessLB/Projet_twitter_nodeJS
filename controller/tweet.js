@@ -20,7 +20,6 @@ router.get("/tweets", (req, res) => {
 router.get("/tweet/:id", (req, res) => {
     bdd.findTweet(req.params.id, (rows) => {
         bdd2.findAllCommentsByTweet(req.params.id, (rows2) => {
-            console.log(rows2);
             res.render ("tweet/tweet", { tweet : rows, comments : rows2, mime : mime, user : req.session.user})
         })
     })
